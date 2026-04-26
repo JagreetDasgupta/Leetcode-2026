@@ -1,0 +1,20 @@
+class Solution {
+ public:
+  int numberOfUniqueGoodSubsequences(string binary) {
+    constexpr int kMod = 1'000'000'007;
+    vector<int> endsIn(2);
+
+    for (const char c : binary) {
+      endsIn[c - '0'] = (endsIn[0] + endsIn[1]) % kMod;
+
+      if (c == '1')
+        ++endsIn[1];
+    }
+
+    return (endsIn[0] + endsIn[1] +
+            (binary.find('0') == string::npos ? 0 : 1)) %
+           kMod;
+  }
+};
+
+
